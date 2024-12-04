@@ -200,16 +200,16 @@ def color_sequence_reports():
 
 def usv_wind_speed():
     return Bridge(
-        gz_topic=f'/vrx/debug/wind/speed',
-        ros_topic=f'/vrx/debug/wind/speed',
+        gz_topic=f'/world/wind/speed',
+        ros_topic=f'/world/wind/speed',
         gz_type='ignition.msgs.Float',
         ros_type='std_msgs/msg/Float32',
         direction=BridgeDirection.GZ_TO_ROS)
         
 def usv_wind_direction():
     return Bridge(
-        gz_topic=f'/vrx/debug/wind/direction',
-        ros_topic=f'/vrx/debug/wind/direction',
+        gz_topic=f'/world/wind/direction',
+        ros_topic=f'/world/wind/direction',
         gz_type='ignition.msgs.Float',
         ros_type='std_msgs/msg/Float32',
         direction=BridgeDirection.GZ_TO_ROS)
