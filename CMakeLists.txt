@@ -85,8 +85,6 @@ ament_python_install_package(
 #============================================================================
 # Resources
 install(DIRECTORY
-  config
-  launch
   models
   DESTINATION share/${PROJECT_NAME})
 
