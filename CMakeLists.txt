@@ -160,6 +160,7 @@ list(APPEND VRX_GZ_PLUGINS
   PlacardPlugin
   PublisherPlugin
   ScanDockScoringPlugin
+  SensorLatency
   SimpleHydrodynamics
   Surface
   USVWind
@@ -180,6 +181,12 @@ foreach(PLUGIN ${VRX_GZ_PLUGINS})
     Eigen3::Eigen
   )
 endforeach()
+
+# SensorLatency needs additional dependencies
+target_link_libraries(SensorLatency PUBLIC
+  gz-transport${GZ_TRANSPORT_VER}::gz-transport${GZ_TRANSPORT_VER}
+  gz-msgs10::gz-msgs10
+)
 
 install(
   TARGETS ${VRX_GZ_PLUGINS}
