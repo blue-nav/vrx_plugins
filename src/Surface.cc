@@ -23,6 +23,7 @@
 #include <gz/plugin/Register.hh>
 #include <sdf/sdf.hh>
 
+#include "gz/sim/components/Pose.hh"
 #include "gz/sim/Link.hh"
 #include "gz/sim/Model.hh"
 #include "gz/sim/Util.hh"
@@ -59,7 +60,7 @@ class vrx::Surface::Implementation
   public: double fluidLevel = 0;
 
   /// \brief Fluid density [kg/m^3].
-  public: double fluidDensity = 997.7735;
+  public: double fluidDensity = 1000.0;
 
   /// \brief The world's gravity [m/s^2].
   public: math::Vector3d gravity;
@@ -213,6 +214,9 @@ void Surface::PreUpdate(const sim::UpdateInfo &_info,
   const auto kPose = this->dataPtr->link.WorldPose(_ecm);
   if (!kPose)
   {
+    sim::enableComponent<sim::components::WorldPose>(
+      _ecm, this->dataPtr->link.Entity(), true);
+
     gzerr << "Unable to get world pose from link ["
            << this->dataPtr->link.Entity() << "]" << std::endl;
     return;
@@ -239,11 +243,8 @@ void Surface::PreUpdate(const sim::UpdateInfo &_info,
     double simTime = std::chrono::duration<double>(_info.simTime).count();
     double depth = this->dataPtr->wavefield.ComputeDepthSimply(point, simTime);
 
-    // Vertical wave displacement.
-    double dz = depth + point.Z();
-
     // Total z location of boat grid point relative to fluid surface.
-    double deltaZ = (this->dataPtr->fluidLevel + dz) - kDdz;
+    double deltaZ = (this->dataPtr->fluidLevel + depth) - kDdz;
     // Enforce only upward buoy force
     deltaZ = std::max(deltaZ, 0.0);
     deltaZ = std::min(deltaZ, this->dataPtr->hullRadius);

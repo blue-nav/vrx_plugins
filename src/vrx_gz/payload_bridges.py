@@ -1,6 +1,21 @@
+# Copyright 2021 Open Source Robotics Foundation, Inc.
+# Copyright 2025 Honu Robotics, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from vrx_gz.bridge import Bridge, BridgeDirection
 
-import sdformat13 as sdf
+import sdformat14 as sdf
 
 
 def gz_prefix(world_name, model_name, link_name, sensor_name):
@@ -17,7 +32,7 @@ def image(world_name, model_name, link_name, sensor_name):
     return Bridge(
         gz_topic=f'{gz_sensor_prefix}/image',
         ros_topic=f'{ros_sensor_prefix}/image_raw',
-        gz_type='ignition.msgs.Image',
+        gz_type='gz.msgs.Image',
         ros_type='sensor_msgs/msg/Image',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -28,7 +43,7 @@ def depth_image(world_name, model_name, link_name, sensor_name):
     return Bridge(
         gz_topic=f'{gz_sensor_prefix}/depth_image',
         ros_topic=f'{ros_sensor_prefix}/depth',
-        gz_type='ignition.msgs.Image',
+        gz_type='gz.msgs.Image',
         ros_type='sensor_msgs/msg/Image',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -39,7 +54,7 @@ def camera_info(world_name, model_name, link_name, sensor_name):
     return Bridge(
         gz_topic=f'{gz_sensor_prefix}/camera_info',
         ros_topic=f'{ros_sensor_prefix}/camera_info',
-        gz_type='ignition.msgs.CameraInfo',
+        gz_type='gz.msgs.CameraInfo',
         ros_type='sensor_msgs/msg/CameraInfo',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -50,7 +65,7 @@ def lidar_scan(world_name, model_name, link_name, sensor_name):
     return Bridge(
         gz_topic=f'{gz_sensor_prefix}/scan',
         ros_topic=f'{ros_sensor_prefix}/scan',
-        gz_type='ignition.msgs.LaserScan',
+        gz_type='gz.msgs.LaserScan',
         ros_type='sensor_msgs/msg/LaserScan',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -61,7 +76,7 @@ def lidar_points(world_name, model_name, link_name, sensor_name):
     return Bridge(
         gz_topic=f'{gz_sensor_prefix}/scan/points',
         ros_topic=f'{ros_sensor_prefix}/points',
-        gz_type='ignition.msgs.PointCloudPacked',
+        gz_type='gz.msgs.PointCloudPacked',
         ros_type='sensor_msgs/msg/PointCloud2',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -72,7 +87,7 @@ def camera_points(world_name, model_name, link_name, sensor_name):
     return Bridge(
         gz_topic=f'{gz_sensor_prefix}/points',
         ros_topic=f'{ros_sensor_prefix}/points',
-        gz_type='ignition.msgs.PointCloudPacked',
+        gz_type='gz.msgs.PointCloudPacked',
         ros_type='sensor_msgs/msg/PointCloud2',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -83,7 +98,7 @@ def rfranger(world_name, model_name, link_name, sensor_name):
     return Bridge(
         gz_topic=f'{gz_sensor_prefix}/rfsensor',
         ros_topic=f'{ros_sensor_prefix}/rfsensor',
-        gz_type='ignition.msgs.Param_V',
+        gz_type='gz.msgs.Param_V',
         ros_type='ros_gz_interfaces/msg/ParamVec',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -93,7 +108,7 @@ def imu(world_name, model_name, link_name, sensor_name):
     return Bridge(
         gz_topic=f'{gz_sensor_prefix}/imu',
         ros_topic=f'{ros_sensor_prefix}imu/data',
-        gz_type='ignition.msgs.IMU',
+        gz_type='gz.msgs.IMU',
         ros_type='sensor_msgs/msg/Imu',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -103,7 +118,7 @@ def navsat(world_name, model_name, link_name, sensor_name):
     return Bridge(
         gz_topic=f'{gz_sensor_prefix}/navsat',
         ros_topic=f'{ros_sensor_prefix}gps/fix',
-        gz_type='ignition.msgs.NavSat',
+        gz_type='gz.msgs.NavSat',
         ros_type='sensor_msgs/msg/NavSatFix',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -112,7 +127,7 @@ def contacts():
     return Bridge(
         gz_topic=f'/vrx/contacts',
         ros_topic=f'/vrx/contacts',
-        gz_type='ignition.msgs.Contacts',
+        gz_type='gz.msgs.Contacts',
         ros_type='ros_gz_interfaces/msg/Contacts',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -122,7 +137,7 @@ def odometry(model_name):
     return Bridge(
         gz_topic=f'/model/{model_name}/odometry',
         ros_topic=f'{ros_sensor_prefix}ground_truth_odometry',
-        gz_type='ignition.msgs.Odometry',
+        gz_type='gz.msgs.Odometry',
         ros_type='nav_msgs/msg/Odometry',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -130,7 +145,7 @@ def ball_shooter(model_name):
     return Bridge(
         gz_topic=f'/{model_name}/shooters/ball_shooter/fire',
         ros_topic=f'shooters/ball_shooter/fire',
-        gz_type='ignition.msgs.Boolean',
+        gz_type='gz.msgs.Boolean',
         ros_type='std_msgs/msg/Bool',
         direction=BridgeDirection.ROS_TO_GZ)
 
@@ -138,7 +153,7 @@ def thrust(model_name, side):
     return Bridge(
         gz_topic=f'{model_name}/thrusters/{side}/thrust',
         ros_topic=f'thrusters/{side}/thrust',
-        gz_type='ignition.msgs.Double',
+        gz_type='gz.msgs.Double',
         ros_type='std_msgs/msg/Float64',
         direction=BridgeDirection.ROS_TO_GZ)
 
@@ -152,7 +167,7 @@ def thrust_joint_pos(model_name, side):
     return Bridge(
         gz_topic=f'{model_name}/thrusters/{side}/pos',
         ros_topic=f'thrusters/{side}/pos',
-        gz_type='ignition.msgs.Double',
+        gz_type='gz.msgs.Double',
         ros_type='std_msgs/msg/Float64',
         direction=BridgeDirection.ROS_TO_GZ)
 
@@ -160,7 +175,7 @@ def acoustic_pinger(model_name):
     return Bridge(
         gz_topic=f'{model_name}/sensors/acoustics/receiver/range_bearing',
         ros_topic=f'sensors/acoustics/receiver/range_bearing',
-        gz_type='ignition.msgs.Param',
+        gz_type='gz.msgs.Param',
         ros_type='ros_gz_interfaces/msg/ParamVec',
         direction=BridgeDirection.GZ_TO_ROS)
 
@@ -168,7 +183,7 @@ def set_acoustic_pinger():
     return Bridge(
         gz_topic=f'/pinger/set_pinger_position',
         ros_topic=f'/pinger/set_pinger_position',
-        gz_type='ignition.msgs.Vector3d',
+        gz_type='gz.msgs.Vector3d',
         ros_type='geometry_msgs/msg/Vector3',
         direction=BridgeDirection.ROS_TO_GZ)
 

@@ -72,11 +72,11 @@ public:
   double varVel = 0;
   /// \brief Topic where the wind speed is published
 public:
-  std::string topicWindSpeed = "/world/wind/speed";
+  std::string topicWindSpeed = "/vrx/debug/wind/speed";
 
   /// \brief Topic where the wind direction is published
 public:
-  std::string topicWindDirection = "/world/wind/direction";
+  std::string topicWindDirection = "/vrx/debug/wind/direction";
   /// \brief Message to store wind vector (constant)
 public:
   msgs::Float windDirMsg;
